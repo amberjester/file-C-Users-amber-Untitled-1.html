@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .content {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .emoji {
+            font-size: 50px;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+            width: auto;
+            height: auto;
+            filter: grayscale(100%);
+        }
+        .emoji span {
+            display: block;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .selected {
+            border: 2px solid blue;
+        }
+        .hidden {
+            display: none;
+        }
+        .thank-you {
+            font-size: 1.5em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Help Us Improve!</h1>
+    <p>Would you say our rewards program...</p>
+
+    <form id="feedbackForm">
+        <div class="emoji-container">
+            <span class="emoji" id="needsImprovement" style="display: flex; flex-direction: column; align-items: center;">&#128577;<span style="text-align: center;">Needs<br>Improvement</span></span>
+            <span class="emoji" id="isGood" style="text-align: center; display: inline-block;">&#128528;<span style="display: block; text-align: center;">Is Good</span></span>
+            <span class="emoji" id="isGreat">&#128522;<span>Is Great</span></span>
+        </div>
+
+        <p>Would you be likely to recommend our rewards program to a friend or family member?</p>
+        <div class="emoji-container">
+            <label>
+                <input type="radio" name="recommend" value="Yes" required>
+                <span class="emoji">&#128077;<span>Yes</span></span>
+            </label>
+            <label>
+                <input type="radio" name="recommend" value="No" required>
+                <span class="emoji">&#128078;<span>No</span></span>
+            </label>
+        </div>
+
+        <p>Additional comments</p>
+        <textarea name="comments" rows="4" cols="40" placeholder="Your comments here..."></textarea>
+
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="thankYouMessage" class="hidden thank-you" style="color: darkblue;">Thank you for your feedback!</p>
+
+    </div>
+    <script>
+        const emojis = document.querySelectorAll('.emoji');
+        let selectedEmoji = null;
+
+        emojis.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                if (selectedEmoji) {
+                    selectedEmoji.classList.remove('selected');
+                }
+                emoji.classList.add('selected');
+                selectedEmoji = emoji;
+            });
+        });
+
+        const form = document.getElementById('feedbackForm');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form.classList.add('hidden');
+            thankYouMessage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
